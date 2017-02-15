@@ -1569,6 +1569,7 @@ namespace zmq {
     NODE_DEFINE_CONSTANT(target, ZMQ_PAIR);
     #if ZMQ_VERSION_MAJOR >= 4
     NODE_DEFINE_CONSTANT(target, ZMQ_STREAM);
+    NODE_DEFINE_CONSTANT(target, ZMQ_CLIENT);
     #endif
 
     NODE_DEFINE_CONSTANT(target, ZMQ_POLLIN);
