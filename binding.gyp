@@ -19,27 +19,6 @@
                 'libraries': [
                   '<(PRODUCT_DIR)/../../windows/lib/x86/libzmq-v100-mt-4_0_4.lib',
                 ]
-{
-  'targets': [
-    {
-      'target_name': 'zmq',
-      'sources': [ 'binding.cc' ],
-      'include_dirs' : [
-        "<!(node -e \"require('nan')\")"
-      ],
-      'conditions': [
-        ['OS=="win"', {
-          'win_delay_load_hook': 'true',
-          'include_dirs': ['windows/include'],
-          'link_settings': {
-            'libraries': [
-              'Delayimp.lib',
-            ],
-            'conditions': [
-              ['target_arch=="ia32"', {
-                'libraries': [
-                  '<(PRODUCT_DIR)/../../windows/lib/x86/libzmq-v100-mt-4_0_4.lib',
-                ]
               },{
                 'libraries': [
                   '<(PRODUCT_DIR)/../../windows/lib/x64/libzmq-v100-mt-4_0_4.lib',
@@ -60,20 +39,16 @@
         ['OS=="mac" or OS=="solaris"', {
           'xcode_settings': {
             'OTHER_CFLAGS': [
-                '-DZMQ_BUILD_DRAFT_API=1 '
+              '-DZMQ_BUILD_DRAFT_API=1'
             ],
             'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
           },
           # add macports include & lib dirs, homebrew include & lib dirs
           'include_dirs': [
-            '<!@(pkg-config libzmq --cflags-only-I | sed s/-I//g)',
-            '/opt/local/include',
-            '/usr/local/include',
+            '/opt/demo/include/Darwin',
           ],
           'libraries': [
-            '<!@(pkg-config libzmq --libs)',
-            '-L/opt/local/lib',
-            '-L/usr/local/lib',
+            '-L/opt/demo/lib/Darwin',
           ]
         }],
         ['OS=="openbsd" or OS=="freebsd"', {
@@ -88,10 +63,10 @@
         }],
         ['OS=="linux"', {
           'cflags': [
-            '<!(pkg-config libzmq --cflags 2>/dev/null || echo "")',
+            '/opt/demo/include/Linux',
           ],
           'libraries': [
-            '<!(pkg-config libzmq --libs 2>/dev/null || echo "")',
+            '-L/opt/demo/lib/Linux',
           ],
         }],
       ]
